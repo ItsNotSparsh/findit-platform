@@ -64,10 +64,10 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group" id="nav-logo">
-            <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center text-white font-bold text-sm transition-transform group-hover:scale-110">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-sm transition-transform group-hover:scale-110">
               F
             </div>
-            <span className="text-xl font-bold gradient-text">FindIt</span>
+            <span className="text-xl font-bold text-foreground">FindIt</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -111,7 +111,7 @@ export function Navbar() {
                   <Link href="/report/new?type=found">
                     <Button
                       size="sm"
-                      className="h-8 px-3 rounded-lg gradient-primary text-white border-0 shadow-none transition-all hover:opacity-90"
+                      className="h-8 px-3 rounded-lg bg-primary text-white border-0 shadow-none transition-all hover:opacity-90"
                       id="nav-report-found"
                     >
                       I Found Something
@@ -134,7 +134,7 @@ export function Navbar() {
                     className="flex items-center gap-2 px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all duration-200"
                     id="nav-profile-toggle"
                   >
-                    <div className="w-7 h-7 rounded-full gradient-primary flex items-center justify-center text-white text-xs font-bold">
+                    <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">
                       {session.user?.name?.[0]?.toUpperCase() || "U"}
                     </div>
                     <span className="font-medium text-sm hidden lg:block">{session.user?.name}</span>
@@ -182,7 +182,7 @@ export function Navbar() {
                   <Button variant="ghost" size="sm" className="font-medium" id="nav-login">Log In</Button>
                 </Link>
                 <Link href="/register">
-                  <Button size="sm" className="gradient-primary text-white border-0 shadow-sm shadow-primary/20 hover:opacity-90" id="nav-signup">Sign Up</Button>
+                  <Button size="sm" className="bg-primary text-white border-0 shadow-sm shadow-primary/20 hover:opacity-90" id="nav-signup">Sign Up</Button>
                 </Link>
               </div>
             )}
@@ -255,7 +255,7 @@ export function Navbar() {
                     <Button variant="destructive" size="sm" className="w-full h-10 rounded-lg shadow-none">I Lost Something</Button>
                   </Link>
                   <Link href="/report/new?type=found" onClick={() => setIsMenuOpen(false)}>
-                    <Button size="sm" className="w-full h-10 rounded-lg gradient-primary text-white border-0 shadow-none">I Found Something</Button>
+                    <Button size="sm" className="w-full h-10 rounded-lg bg-primary text-white border-0 shadow-none">I Found Something</Button>
                   </Link>
                 </div>
                 <div className="border-t border-border mt-2 pt-2">
@@ -276,7 +276,7 @@ export function Navbar() {
                   <Button variant="outline" size="sm" className="w-full">Log In</Button>
                 </Link>
                 <Link href="/register" onClick={() => setIsMenuOpen(false)}>
-                  <Button size="sm" className="w-full gradient-primary text-white border-0">Sign Up</Button>
+                  <Button size="sm" className="w-full bg-primary text-white border-0">Sign Up</Button>
                 </Link>
               </div>
             )}

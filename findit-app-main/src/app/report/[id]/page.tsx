@@ -11,6 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import { ClaimSection } from "@/components/claims/ClaimSection";
 import { ClaimActions } from "@/components/claims/ClaimActions";
 import { DeleteReportButton } from "@/components/reports/DeleteReportButton";
+import { CategoryIcon } from "@/components/ui/CategoryIcon";
+import { CalendarDays, Clock3, MapPin } from "lucide-react";
 
 interface ReportPageProps {
   params: Promise<{ id: string }>;
@@ -88,8 +90,8 @@ export default async function ReportPage({ params }: ReportPageProps) {
             {/* Type accent bar */}
             <div className={`h-1.5 ${
               isLost
-                ? "bg-gradient-to-r from-red-500 to-orange-400"
-                : "bg-gradient-to-r from-emerald-500 to-teal-400"
+                ? "bg-red-600"
+                : "bg-emerald-700"
             }`} />
 
             {/* Item Image */}
@@ -108,7 +110,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                 <CardTitle className="text-xl sm:text-2xl">{report.title}</CardTitle>
                 <Badge
                   variant={isLost ? "destructive" : "default"}
-                  className={`shrink-0 ${!isLost ? "gradient-primary text-white border-0" : ""}`}
+                  className={`shrink-0 ${!isLost ? "bg-primary text-white border-0" : ""}`}
                 >
                   {isLost ? "LOST" : "FOUND"}
                 </Badge>
@@ -116,14 +118,14 @@ export default async function ReportPage({ params }: ReportPageProps) {
               <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mt-2">
                 {report.categoryName && (
                   <span className="inline-flex items-center gap-1 bg-muted px-2.5 py-0.5 rounded-full text-xs font-medium">
-                    {report.categoryIcon} {report.categoryName}
+                    <CategoryIcon name={report.categoryName ?? ""} /> {report.categoryName}
                   </span>
                 )}
                 <span className="inline-flex items-center gap-1 text-xs">
-                  📅 {isLost ? "Lost" : "Found"} on {formatDate(report.lostFoundDate)}
+                  <CalendarDays aria-hidden="true" className="h-4 w-4" /> {isLost ? "Lost" : "Found"} on {formatDate(report.lostFoundDate)}
                 </span>
                 <span className="inline-flex items-center gap-1 text-xs">
-                  🕐 Posted {formatDate(report.createdAt)}
+                  <Clock3 aria-hidden="true" className="h-4 w-4" /> Posted {formatDate(report.createdAt)}
                 </span>
               </div>
             </CardHeader>
@@ -139,7 +141,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                   <div>
                     <h2 className="font-semibold mb-2 text-sm uppercase tracking-wide text-muted-foreground">Location</h2>
                     <p className="text-foreground/80 inline-flex items-start gap-2">
-                      <span className="text-lg mt-0.5">📍</span>
+                      <MapPin aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0" />
                       {report.locationDescription}
                     </p>
                   </div>
@@ -168,7 +170,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                 <span className="text-sm text-muted-foreground">Status</span>
                 <Badge
                   variant={report.status === "ACTIVE" ? "default" : "secondary"}
-                  className={report.status === "ACTIVE" ? "gradient-primary text-white border-0" : ""}
+                  className={report.status === "ACTIVE" ? "bg-primary text-white border-0" : ""}
                 >
                   {report.status}
                 </Badge>
@@ -198,7 +200,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                             variant="outline"
                             className="text-xs dark:bg-background/40 dark:border-border/60"
                           >
-                            View Details →
+                            View details
                           </Button>
                         </Link>
                       </div>
@@ -214,7 +216,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
 
               {!session?.user && !isLost && report.status === "ACTIVE" && (
                 <Link href={`/login?callbackUrl=/report/${report.id}`}>
-                  <Button className="w-full gradient-primary text-white border-0 shadow-sm h-11" id="report-login-claim">
+                  <Button className="w-full bg-primary text-white border-0 shadow-sm h-11" id="report-login-claim">
                     Login to Claim This Item
                   </Button>
                 </Link>
@@ -239,7 +241,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                       <Badge variant={
                         claim.status === "PENDING" ? "secondary" :
                         claim.status === "APPROVED" ? "default" : "destructive"
-                      } className={`text-xs ${claim.status === "APPROVED" ? "gradient-primary text-white border-0" : ""}`}>
+                      } className={`text-xs ${claim.status === "APPROVED" ? "bg-primary text-white border-0" : ""}`}>
                         {claim.status}
                       </Badge>
                     </div>
@@ -253,7 +255,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                     )}
                     {claim.pickupTime && (
                       <p className="text-xs text-muted-foreground mb-2">
-                        📅 Pickup: {formatDate(claim.pickupTime)}
+                        <CalendarDays aria-hidden="true" className="mr-1 inline h-3.5 w-3.5" /> Pickup: {formatDate(claim.pickupTime)}
                         {claim.pickupLocation && ` at ${claim.pickupLocation}`}
                       </p>
                     )}
@@ -261,7 +263,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                       {claim.status === "PENDING" && <ClaimActions claimId={claim.id} />}
                       <Link href={`/claim/${claim.id}`} className="ml-auto">
                         <Button size="sm" variant="outline" className="text-xs h-8">
-                          Details →
+                          Details
                         </Button>
                       </Link>
                     </div>
@@ -277,7 +279,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
       {!isOwner && !isLost && report.status === "ACTIVE" && !session?.user && (
         <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 glass-strong border-t z-40">
           <Link href={`/login?callbackUrl=/report/${report.id}`}>
-            <Button className="w-full gradient-primary text-white border-0 shadow-lg h-12 text-base font-medium">
+            <Button className="w-full bg-primary text-white border-0 shadow-lg h-12 text-base font-medium">
               Login to Claim This Item
             </Button>
           </Link>

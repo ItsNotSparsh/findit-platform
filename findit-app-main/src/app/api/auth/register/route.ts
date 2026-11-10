@@ -1,52 +1,47 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import bcrypt from "bcryptjs";
-import { eq } from "drizzle-orm";
+import { registerUserSchema } from "@/lib/validators/auth";
 
 export async function POST(request: Request) {
   try {
-    const { username, password } = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    }
 
-    if (!username || !password) {
+    const parsed = registerUserSchema.safeParse(body);
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: "Username and password are required" },
+        { error: parsed.error.issues[0]?.message ?? "Invalid registration details" },
         { status: 400 }
       );
     }
 
-    if (username.length < 3) {
+    const { username, password } = parsed.data;
+    if (new TextEncoder().encode(password).byteLength > 72) {
       return NextResponse.json(
-        { error: "Username must be at least 3 characters" },
-        { status: 400 }
-      );
-    }
-
-    if (password.length < 6) {
-      return NextResponse.json(
-        { error: "Password must be at least 6 characters" },
-        { status: 400 }
-      );
-    }
-
-    // Check if username already exists
-    const [existing] = await db
-      .select()
-      .from(users)
-      .where(eq(users.username, username))
-      .limit(1);
-
-    if (existing) {
-      return NextResponse.json(
-        { error: "Username already taken" },
+        { error: "Password must be at most 72 bytes when encoded" },
         { status: 400 }
       );
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
+    const [created] = await db
+      .insert(users)
+      .values({ username, passwordHash })
+      .onConflictDoNothing({ target: users.username })
+      .returning({ id: users.id });
 
-    await db.insert(users).values({ username, passwordHash });
+    if (!created) {
+      return NextResponse.json(
+        { error: "Username already taken" },
+        { status: 409 }
+      );
+    }
 
     return NextResponse.json(
       { message: "Account created successfully" },

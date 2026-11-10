@@ -84,7 +84,7 @@ export async function POST(request: Request) {
     createNotification({
       userId: report.userId,
       type: "CLAIM",
-      title: "📋 New Claim Submitted",
+      title: "New claim submitted",
       message: `@${claimer?.username || "Someone"} submitted a claim on "${report.title}"`,
       linkUrl: `/claim/${claim.id}`,
     }).catch(() => {});

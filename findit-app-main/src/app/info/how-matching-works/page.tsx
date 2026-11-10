@@ -8,7 +8,7 @@ export default function HowMatchingWorksPage() {
       <div className="mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">How Matching Works</h1>
         <p className="text-muted-foreground mt-2">
-          FindIt compares lost and found reports to suggest likely matches. Here’s what it looks at and how you can
+          FindIt compares lost and found reports to suggest possible matches. Here is what it considers and how you can
           improve results.
         </p>
       </div>
@@ -60,7 +60,7 @@ export default function HowMatchingWorksPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Link href="/matches">
-                <Button className="gradient-primary text-white border-0">Go to Matches</Button>
+                <Button className="bg-primary text-white border-0">Go to Matches</Button>
               </Link>
               <Link href="/report/new?type=lost">
                 <Button variant="outline">Create Lost Report</Button>

@@ -95,10 +95,10 @@ export function ClaimDisputeActions({ claimId, claimStatus, isOwner, isClaimer }
         <div className="p-4 border-2 border-amber-300 bg-amber-50 rounded-xl animate-scale-in">
           <p className="text-sm font-semibold text-amber-900 mb-1">
             {showConfirm === "withdraw"
-              ? "⚠️ Withdraw this claim?"
+              ? "Withdraw this claim?"
               : showConfirm === "revoke"
-                ? "⚠️ Revoke this approval?"
-                : "⚠️ Reopen this claim?"}
+                ? "Revoke this approval?"
+                : "Reopen this claim?"}
           </p>
           <p className="text-xs text-amber-700 mb-3">
             {showConfirm === "withdraw" &&
@@ -159,7 +159,7 @@ export function ClaimDisputeActions({ claimId, claimStatus, isOwner, isClaimer }
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
               </svg>
-              {claimStatus === "APPROVED" ? "Withdraw — Wrong Item" : "Withdraw My Claim"}
+              {claimStatus === "APPROVED" ? "Withdraw: wrong item" : "Withdraw my claim"}
             </button>
           )}
           {canRevoke && (
@@ -170,13 +170,13 @@ export function ClaimDisputeActions({ claimId, claimStatus, isOwner, isClaimer }
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
               </svg>
-              Revoke Approval — Mistake
+              Revoke approval: mistake
             </button>
           )}
           {canReclaim && (
             <button
               onClick={() => setShowConfirm("reclaim")}
-              className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-colors font-medium"
+              className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-primary bg-primary/5 hover:bg-primary/10 border border-primary/20 rounded-lg transition-colors font-medium"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v6h6M20 20v-6h-6" />

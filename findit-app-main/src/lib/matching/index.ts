@@ -94,7 +94,7 @@ export async function runMatchingAlgorithm(reportId: string): Promise<void> {
         await createNotification({
           userId: report.userId,
           type: "MATCH",
-          title: "🔗 Potential Match Found!",
+          title: "Potential match found",
           message: `Your report "${report.title}" has a ${score}% match with "${candidate.title}"`,
           linkUrl: "/matches",
         });
@@ -102,7 +102,7 @@ export async function runMatchingAlgorithm(reportId: string): Promise<void> {
         await createNotification({
           userId: candidate.userId,
           type: "MATCH",
-          title: "🔗 Potential Match Found!",
+          title: "Potential match found",
           message: `Your report "${candidate.title}" has a ${score}% match with "${report.title}"`,
           linkUrl: "/matches",
         });

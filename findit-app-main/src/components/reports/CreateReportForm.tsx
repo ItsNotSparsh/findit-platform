@@ -9,6 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { createReportSchema, type CreateReportInput } from "@/lib/validators/report";
+import { CategoryIcon } from "@/components/ui/CategoryIcon";
+import { ImagePlus, X } from "lucide-react";
 
 interface Category {
   id: string;
@@ -157,7 +159,6 @@ export function CreateReportForm({ categories }: CreateReportFormProps) {
             }`}
           >
             <input type="radio" value="LOST" {...register("type")} className="sr-only" />
-            <span className="block text-2xl mb-1">😢</span>
             <span className={`font-semibold text-sm ${isLost ? "text-red-600" : "text-muted-foreground"}`}>
               I Lost Something
             </span>
@@ -170,7 +171,6 @@ export function CreateReportForm({ categories }: CreateReportFormProps) {
             }`}
           >
             <input type="radio" value="FOUND" {...register("type")} className="sr-only" />
-            <span className="block text-2xl mb-1">🎉</span>
             <span className={`font-semibold text-sm ${!isLost ? "text-emerald-600" : "text-muted-foreground"}`}>
               I Found Something
             </span>
@@ -181,7 +181,7 @@ export function CreateReportForm({ categories }: CreateReportFormProps) {
       {/* Image Upload */}
       <div>
         <Label className="mb-2 block text-sm font-medium">
-          📷 Photo (Optional)
+          <span className="inline-flex items-center gap-2"><ImagePlus aria-hidden="true" className="h-4 w-4" />Photo (optional)</span>
         </Label>
         {imagePreview ? (
           <div className="relative rounded-xl overflow-hidden border border-border/60 animate-scale-in">
@@ -207,7 +207,7 @@ export function CreateReportForm({ categories }: CreateReportFormProps) {
                 onClick={removeImage}
                 className="absolute top-2 right-2 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-colors"
               >
-                ✕
+                <X aria-hidden="true" className="h-4 w-4" />
               </button>
             )}
             {imageUrl && !uploading && (
@@ -231,7 +231,7 @@ export function CreateReportForm({ categories }: CreateReportFormProps) {
             <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
               Click to upload a photo
             </p>
-            <p className="text-xs text-muted-foreground mt-1">JPEG, PNG or WebP • Max 5MB</p>
+            <p className="text-xs text-muted-foreground mt-1">JPEG, PNG, or WebP. Maximum 5 MB.</p>
           </button>
         )}
         <input
@@ -283,7 +283,7 @@ export function CreateReportForm({ categories }: CreateReportFormProps) {
           <option value="">Select a category...</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
-              {cat.icon} {cat.name}
+              <CategoryIcon name={cat.name} className="mr-1.5 inline h-4 w-4 align-text-bottom" />{cat.name}
             </option>
           ))}
         </select>
@@ -346,7 +346,7 @@ export function CreateReportForm({ categories }: CreateReportFormProps) {
           variant={isLost ? "destructive" : "default"}
           disabled={isSubmitting || uploading || submitLocked}
           className={`flex-1 h-12 rounded-xl font-medium border-0 shadow-none ${
-            !isLost ? "gradient-primary text-white hover:opacity-90" : "hover:opacity-95"
+            !isLost ? "bg-primary text-white hover:opacity-90" : "hover:opacity-95"
           }`}
           id="report-submit"
         >

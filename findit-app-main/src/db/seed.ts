@@ -9,7 +9,7 @@ const client = postgres(process.env.DATABASE_URL!);
 const db = drizzle(client);
 
 async function main() {
-  console.log("🌱 Seeding database...");
+  console.log("Seeding database...");
 
   // Clear existing data (order matters for foreign keys)
   await db.delete(matches);
@@ -19,18 +19,18 @@ async function main() {
 
   // Create categories (flat list)
   const categoryData = [
-    { id: createId(), name: "Phones", slug: "phones", icon: "📱" },
-    { id: createId(), name: "Laptops", slug: "laptops", icon: "💻" },
-    { id: createId(), name: "Headphones", slug: "headphones", icon: "🎧" },
-    { id: createId(), name: "Wallets", slug: "wallets", icon: "👛" },
-    { id: createId(), name: "Keys", slug: "keys", icon: "🔑" },
-    { id: createId(), name: "Bags", slug: "bags", icon: "🎒" },
-    { id: createId(), name: "ID Cards", slug: "id-cards", icon: "🪪" },
-    { id: createId(), name: "Books", slug: "books", icon: "📚" },
-    { id: createId(), name: "Glasses", slug: "glasses", icon: "👓" },
-    { id: createId(), name: "Clothing", slug: "clothing", icon: "👕" },
-    { id: createId(), name: "Watches", slug: "watches", icon: "⌚" },
-    { id: createId(), name: "Other", slug: "other", icon: "📦" },
+    { id: createId(), name: "Phones", slug: "phones", icon: null },
+    { id: createId(), name: "Laptops", slug: "laptops", icon: null },
+    { id: createId(), name: "Headphones", slug: "headphones", icon: null },
+    { id: createId(), name: "Wallets", slug: "wallets", icon: null },
+    { id: createId(), name: "Keys", slug: "keys", icon: null },
+    { id: createId(), name: "Bags", slug: "bags", icon: null },
+    { id: createId(), name: "ID Cards", slug: "id-cards", icon: null },
+    { id: createId(), name: "Books", slug: "books", icon: null },
+    { id: createId(), name: "Glasses", slug: "glasses", icon: null },
+    { id: createId(), name: "Clothing", slug: "clothing", icon: null },
+    { id: createId(), name: "Watches", slug: "watches", icon: null },
+    { id: createId(), name: "Other", slug: "other", icon: null },
   ];
   await db.insert(categories).values(categoryData);
 
@@ -100,14 +100,14 @@ async function main() {
     confidenceScore: 85,
   });
 
-  console.log("✅ Created 12 categories, 4 reports, 2 users, 1 match");
-  console.log("📝 Demo accounts: alice/password123, bob/password123");
-  console.log("🎉 Seeding complete!");
+  console.log("Created 12 categories, 4 reports, 2 users, 1 match");
+  console.log("Demo accounts: alice/password123, bob/password123");
+  console.log("Seeding complete!");
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Seeding failed:", e);
+    console.error("Seeding failed:", e);
     process.exit(1);
   })
   .finally(async () => {

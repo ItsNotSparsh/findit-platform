@@ -25,7 +25,8 @@ const themeInitScript = `
 
 export const metadata: Metadata = {
   title: "FindIt - Lost & Found Platform",
-  description: "A community-driven platform for reporting and recovering lost items.",
+  description: "Report lost and found items, review possible matches, and coordinate returns with report owners.",
+  icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
 };
 
 export default function RootLayout({

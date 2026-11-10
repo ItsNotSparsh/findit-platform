@@ -73,7 +73,7 @@ export async function POST(
     createNotification({
       userId: report.userId,
       type: "CLAIM",
-      title: "🔁 Claim Reopened",
+      title: "Claim reopened",
       message: `@${claimer?.username || "Someone"} reopened a claim on "${report.title}"`,
       linkUrl: `/claim/${claim.id}`,
     }).catch(() => {});

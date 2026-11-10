@@ -47,7 +47,7 @@ export async function POST(
     createNotification({
       userId: claim.claimerId,
       type: "CLAIM_APPROVED",
-      title: "✅ Claim Approved!",
+      title: "Claim approved",
       message: `Your claim on "${report.title}" has been approved! Coordinate pickup now.`,
       linkUrl: `/claim/${id}`,
     }).catch(() => {});

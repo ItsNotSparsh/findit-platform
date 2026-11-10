@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CalendarDays, MapPin } from "lucide-react";
 
 interface PickupEditorProps {
   claimId: string;
@@ -69,13 +70,13 @@ export function PickupEditor({ claimId, currentPickupTime, currentPickupLocation
           <div className="bg-muted/50 p-3 rounded-lg space-y-1.5">
             {currentPickupTime && (
               <p className="text-sm flex items-center gap-2">
-                <span>📅</span>
+                <CalendarDays aria-hidden="true" className="h-4 w-4" />
                 <span className="font-medium">{formatDateTime(currentPickupTime)}</span>
               </p>
             )}
             {currentPickupLocation && (
               <p className="text-sm flex items-center gap-2">
-                <span>📍</span>
+                <MapPin aria-hidden="true" className="h-4 w-4" />
                 <span className="font-medium">{currentPickupLocation}</span>
               </p>
             )}
@@ -127,7 +128,7 @@ export function PickupEditor({ claimId, currentPickupTime, currentPickupLocation
           size="sm"
           onClick={handleSave}
           disabled={saving}
-          className="h-8 text-xs flex-1 gradient-primary text-white border-0"
+          className="h-8 text-xs flex-1 bg-primary text-white border-0"
           id="pickup-save"
         >
           {saving ? "Saving..." : "Save"}

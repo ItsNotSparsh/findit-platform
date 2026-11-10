@@ -13,33 +13,8 @@ export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [redirecting, setRedirecting] = useState(false);
-  const [passwordStrength, setPasswordStrength] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const checkPasswordStrength = (password: string) => {
-    let score = 0;
-    if (password.length >= 6) score++;
-    if (password.length >= 10) score++;
-    if (/[A-Z]/.test(password)) score++;
-    if (/[0-9]/.test(password)) score++;
-    if (/[^A-Za-z0-9]/.test(password)) score++;
-    setPasswordStrength(score);
-  };
-
-  const getStrengthLabel = () => {
-    if (passwordStrength === 0) return "";
-    if (passwordStrength <= 2) return "Weak";
-    if (passwordStrength <= 3) return "Fair";
-    if (passwordStrength <= 4) return "Strong";
-    return "Very Strong";
-  };
-
-  const getStrengthColor = () => {
-    if (passwordStrength <= 2) return "bg-red-500";
-    if (passwordStrength <= 3) return "bg-yellow-500";
-    return "bg-emerald-500";
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,7 +22,7 @@ export default function RegisterPage() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const username = formData.get("username") as string;
+    const username = (formData.get("username") as string).trim();
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
 
@@ -96,13 +71,13 @@ export default function RegisterPage() {
     return (
       <div className="min-h-[80vh] flex items-center justify-center px-4">
         <div className="text-center animate-fade-in-up">
-          <div className="w-12 h-12 rounded-full gradient-primary mx-auto flex items-center justify-center mb-4">
+          <div className="w-12 h-12 rounded-full bg-primary mx-auto flex items-center justify-center mb-4">
             <svg className="w-6 h-6 text-white animate-spin" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
           </div>
-          <p className="text-lg font-medium gradient-text">Setting up your dashboard...</p>
+          <p className="text-lg font-medium text-foreground">Setting up your dashboard...</p>
           <p className="text-sm text-muted-foreground mt-1">Your account has been created!</p>
         </div>
       </div>
@@ -112,25 +87,21 @@ export default function RegisterPage() {
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 border border-border/50 animate-scale-in">
-        {/* Left — Branding Panel */}
-        <div className="hidden md:flex flex-col justify-center items-center gradient-hero text-white p-10 relative overflow-hidden">
-          <div className="absolute -top-20 -left-20 w-64 h-64 bg-white/5 rounded-full" />
-          <div className="absolute -bottom-16 -right-16 w-48 h-48 bg-white/5 rounded-full" />
-          <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-white/5 rounded-full animate-float" />
-
-          <div className="relative z-10 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-3xl font-bold mx-auto mb-6">
+        {/* Information panel */}
+        <div className="hidden md:flex flex-col justify-center items-center bg-slate-900 text-white p-10">
+          <div className="text-center">
+            <div className="w-14 h-14 rounded-lg border border-slate-600 flex items-center justify-center text-2xl font-semibold mx-auto mb-6">
               F
             </div>
             <h2 className="text-3xl font-bold mb-3">Join FindIt</h2>
             <p className="text-white/70 max-w-xs leading-relaxed">
-              Create an account to report items, find matches, and connect with your community.
+              Create an account to post reports, review possible matches, and coordinate item returns.
             </p>
             <div className="mt-8 space-y-3 text-left">
               {[
-                "Report lost or found items instantly",
-                "Smart matching algorithm",
-                "Secure claim & verification system",
+                "Post lost and found reports",
+                "Review suggested item matches",
+                "Send ownership claims to report owners",
               ].map((feature, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm text-white/80">
                   <svg className="w-4 h-4 text-emerald-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,11 +114,11 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        {/* Right — Form */}
+        {/* Registration form */}
         <div className="bg-card p-8 sm:p-10 flex flex-col justify-center">
           {/* Mobile branding */}
           <div className="md:hidden text-center mb-6">
-            <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center text-white font-bold text-xl mx-auto mb-3">
+            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-xl mx-auto mb-3">
               F
             </div>
             <h1 className="text-2xl font-bold">Join FindIt</h1>
@@ -175,6 +146,10 @@ export default function RegisterPage() {
                 placeholder="Choose a username"
                 required
                 minLength={3}
+                maxLength={24}
+                autoComplete="username"
+                pattern="[A-Za-z0-9_]+"
+                title="Use 3 to 24 letters, numbers, or underscores."
                 className="mt-1.5 h-11"
               />
             </div>
@@ -187,9 +162,10 @@ export default function RegisterPage() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Choose a password"
                   required
-                  minLength={6}
+                  minLength={12}
+                  maxLength={72}
+                  autoComplete="new-password"
                   className="h-11 pr-12"
-                  onChange={(e) => checkPasswordStrength(e.target.value)}
                 />
                 <button
                   type="button"
@@ -228,22 +204,9 @@ export default function RegisterPage() {
                   )}
                 </button>
               </div>
-              {/* Password strength indicator */}
-              {passwordStrength > 0 && (
-                <div className="mt-2 animate-slide-up">
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <div
-                        key={i}
-                        className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
-                          i < passwordStrength ? getStrengthColor() : "bg-muted"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-1">{getStrengthLabel()}</p>
-                </div>
-              )}
+              <p className="mt-2 text-xs text-muted-foreground">
+                Use at least 12 characters. Passwords are limited to 72 UTF-8 bytes.
+              </p>
             </div>
             <div>
               <Label htmlFor="confirmPassword" className="text-sm font-medium">Confirm Password</Label>
@@ -254,6 +217,7 @@ export default function RegisterPage() {
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
                   required
+                autoComplete="new-password"
                   className="h-11 pr-12"
                 />
                 <button
@@ -296,7 +260,7 @@ export default function RegisterPage() {
             </div>
             <Button
               type="submit"
-              className="w-full h-11 gradient-primary text-white border-0 shadow-md shadow-primary/20 hover:opacity-90 transition-all font-medium"
+              className="w-full h-11 bg-primary text-white border-0 shadow-md shadow-primary/20 hover:opacity-90 transition-all font-medium"
               disabled={loading}
               id="register-submit"
             >

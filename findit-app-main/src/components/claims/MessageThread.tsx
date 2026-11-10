@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { MessageSquareText } from "lucide-react";
 
 interface Message {
   id: string;
@@ -100,7 +101,7 @@ export function MessageThread({ claimId, currentUserId, messages: initialMessage
       >
         {messages.length === 0 ? (
           <div className="text-center py-8">
-            <div className="text-3xl mb-2">💬</div>
+            <div className="mb-2 flex justify-center text-muted-foreground"><MessageSquareText aria-hidden="true" className="h-7 w-7" /></div>
             <p className="text-sm text-muted-foreground">No messages yet</p>
             <p className="text-xs text-muted-foreground mt-1">Start a conversation about pickup details</p>
           </div>
@@ -155,7 +156,7 @@ export function MessageThread({ claimId, currentUserId, messages: initialMessage
           onClick={handleSend}
           disabled={sending || !newMessage.trim()}
           size="sm"
-          className="gradient-primary text-white border-0 h-11 px-4 self-end shrink-0"
+          className="bg-primary text-white border-0 h-11 px-4 self-end shrink-0"
           id="message-send"
         >
           {sending ? (

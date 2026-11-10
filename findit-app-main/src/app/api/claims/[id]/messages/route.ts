@@ -120,7 +120,7 @@ export async function POST(
       createNotification({
         userId: recipientId,
         type: "MESSAGE",
-        title: "💬 New Message",
+        title: "New message",
         message: `@${sender?.username || "Someone"}: ${validated.content.slice(0, 60)}${validated.content.length > 60 ? "..." : ""}`,
         linkUrl: `/claim/${id}`,
       }).catch(() => {});

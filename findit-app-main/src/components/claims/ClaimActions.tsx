@@ -46,7 +46,7 @@ export function ClaimActions({ claimId }: ClaimActionsProps) {
         className={`h-8 text-xs font-medium transition-all ${
           confirming === "approve"
             ? "bg-emerald-600 hover:bg-emerald-700 text-white"
-            : "gradient-primary text-white border-0"
+            : "bg-primary text-white border-0"
         }`}
         id={`claim-approve-${claimId}`}
       >
@@ -56,7 +56,7 @@ export function ClaimActions({ claimId }: ClaimActionsProps) {
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
         ) : confirming === "approve" ? (
-          "Confirm ✓"
+          "Confirm"
         ) : (
           "Approve"
         )}
@@ -75,7 +75,7 @@ export function ClaimActions({ claimId }: ClaimActionsProps) {
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
         ) : confirming === "reject" ? (
-          "Confirm ✕"
+          "Cancel"
         ) : (
           "Reject"
         )}

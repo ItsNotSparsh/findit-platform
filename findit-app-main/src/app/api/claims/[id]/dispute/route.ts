@@ -59,7 +59,7 @@ export async function POST(
       createNotification({
         userId: report.userId,
         type: "CLAIM",
-        title: "↩️ Claim Withdrawn",
+        title: "Claim withdrawn",
         message: `A claim on "${report.title}" has been withdrawn by the claimer.`,
         linkUrl: `/report/${claim.reportId}`,
       }).catch(() => {});

@@ -1,7 +1,7 @@
 /**
  * ML Embeddings using Hugging Face Transformers.js
  * Runs the all-MiniLM-L6-v2 sentence transformer model locally in Node.js.
- * Completely free — no API keys, no rate limits, no costs.
+ * Runs locally without API keys or per-request costs.
  *
  * The model is downloaded on first use (~30MB) and cached for subsequent runs.
  */
@@ -37,7 +37,7 @@ export async function generateEmbedding(text: string): Promise<number[] | null> 
 
     const output = await extractor(text, { pooling: "mean", normalize: true });
 
-    // output.data is a Float32Array — convert to regular array
+    // output.data is a Float32Array. Convert it to a regular array.
     const embedding = Array.from(output.data as Float32Array);
     return embedding;
   } catch (error) {

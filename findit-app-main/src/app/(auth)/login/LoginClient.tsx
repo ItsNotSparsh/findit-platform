@@ -61,13 +61,13 @@ export function LoginClient({ callbackUrl }: { callbackUrl?: string }) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center px-4">
         <div className="text-center animate-fade-in-up">
-          <div className="w-12 h-12 rounded-full gradient-primary mx-auto flex items-center justify-center mb-4">
+          <div className="w-12 h-12 rounded-full bg-primary mx-auto flex items-center justify-center mb-4">
             <svg className="w-6 h-6 text-white animate-spin" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
           </div>
-          <p className="text-lg font-medium gradient-text">Taking you to your dashboard...</p>
+          <p className="text-lg font-medium text-foreground">Taking you to your dashboard...</p>
           <p className="text-sm text-muted-foreground mt-1">Just a moment</p>
         </div>
       </div>
@@ -77,29 +77,24 @@ export function LoginClient({ callbackUrl }: { callbackUrl?: string }) {
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 border border-border/50 animate-scale-in">
-        {/* Left — Branding Panel */}
-        <div className="hidden md:flex flex-col justify-center items-center gradient-hero text-white p-10 relative overflow-hidden">
-          {/* Decorative circles */}
-          <div className="absolute -top-20 -left-20 w-64 h-64 bg-white/5 rounded-full" />
-          <div className="absolute -bottom-16 -right-16 w-48 h-48 bg-white/5 rounded-full" />
-          <div className="absolute top-1/2 left-1/4 w-20 h-20 bg-white/5 rounded-full animate-float" />
-
+        {/* Information panel */}
+        <div className="hidden md:flex flex-col justify-center items-center bg-slate-900 text-white p-10 relative overflow-hidden">
           <div className="relative z-10 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-3xl font-bold mx-auto mb-6">
+            <div className="w-14 h-14 rounded-lg border border-slate-600 flex items-center justify-center text-2xl font-semibold mx-auto mb-6">
               F
             </div>
             <h2 className="text-3xl font-bold mb-3">Welcome Back</h2>
             <p className="text-white/70 max-w-xs leading-relaxed">
-              Log in to track your reports, view matches, and recover your lost items.
+              Sign in to review your reports, possible matches, and ownership claims.
             </p>
           </div>
         </div>
 
-        {/* Right — Form */}
+        {/* Login form */}
         <div className="bg-card p-8 sm:p-10 flex flex-col justify-center">
           {/* Mobile branding */}
           <div className="md:hidden text-center mb-6">
-            <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center text-white font-bold text-xl mx-auto mb-3">
+            <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-xl mx-auto mb-3">
               F
             </div>
             <h1 className="text-2xl font-bold">Welcome Back</h1>
@@ -126,6 +121,7 @@ export function LoginClient({ callbackUrl }: { callbackUrl?: string }) {
                 name="username"
                 placeholder="Enter your username"
                 required
+                autoComplete="username"
                 className="mt-1.5 h-11"
               />
             </div>
@@ -138,6 +134,7 @@ export function LoginClient({ callbackUrl }: { callbackUrl?: string }) {
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   required
+                  autoComplete="current-password"
                   className="h-11 pr-12"
                 />
                 <button
@@ -180,7 +177,7 @@ export function LoginClient({ callbackUrl }: { callbackUrl?: string }) {
             </div>
             <Button
               type="submit"
-              className="w-full h-11 gradient-primary text-white border-0 shadow-md shadow-primary/20 hover:opacity-90 transition-all font-medium"
+              className="w-full h-11 bg-primary text-white border-0 shadow-md shadow-primary/20 hover:opacity-90 transition-all font-medium"
               disabled={loading}
               id="login-submit"
             >

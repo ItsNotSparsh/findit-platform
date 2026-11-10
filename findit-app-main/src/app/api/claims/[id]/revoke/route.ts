@@ -56,7 +56,7 @@ export async function POST(
     createNotification({
       userId: claim.claimerId,
       type: "CLAIM_REJECTED",
-      title: "⚠️ Approval Revoked",
+      title: "Approval revoked",
       message: `The approval for your claim on "${report.title}" has been revoked. The item is back to active listings.`,
       linkUrl: `/report/${claim.reportId}`,
     }).catch(() => {});

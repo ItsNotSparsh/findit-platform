@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { CategoryIcon } from "@/components/ui/CategoryIcon";
 
 interface ReportCardProps {
   report: {
@@ -42,8 +43,8 @@ export function ReportCard({ report, showClaimButton }: ReportCardProps) {
         {/* Type accent bar */}
         <div className={`absolute top-0 left-0 right-0 h-1 ${
           isLost
-            ? "bg-gradient-to-r from-red-500 to-orange-400"
-            : "bg-gradient-to-r from-emerald-500 to-teal-400"
+            ? "bg-red-600"
+            : "bg-emerald-700"
         }`} />
 
         {/* Image */}
@@ -61,7 +62,7 @@ export function ReportCard({ report, showClaimButton }: ReportCardProps) {
             <Badge
               variant={isLost ? "destructive" : "default"}
               className={`absolute top-2 right-2 text-xs font-semibold ${
-                !isLost ? "gradient-primary text-white border-0" : ""
+                !isLost ? "bg-primary text-white border-0" : ""
               }`}
             >
               {report.type}
@@ -78,7 +79,7 @@ export function ReportCard({ report, showClaimButton }: ReportCardProps) {
               <Badge
                 variant={isLost ? "destructive" : "default"}
                 className={`shrink-0 text-xs font-semibold ${
-                  !isLost ? "gradient-primary text-white border-0" : ""
+                  !isLost ? "bg-primary text-white border-0" : ""
                 }`}
               >
                 {report.type}
@@ -87,8 +88,9 @@ export function ReportCard({ report, showClaimButton }: ReportCardProps) {
           </div>
           <div className="flex items-center gap-2 mt-1">
             {report.category && (
-              <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                {report.category.icon} {report.category.name}
+              <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md">
+                <CategoryIcon name={report.category.name} className="h-3.5 w-3.5" />
+                {report.category.name}
               </span>
             )}
             <span className="text-xs text-muted-foreground">

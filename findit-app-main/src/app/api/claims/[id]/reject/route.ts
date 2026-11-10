@@ -43,7 +43,7 @@ export async function POST(
     createNotification({
       userId: claim.claimerId,
       type: "CLAIM_REJECTED",
-      title: "❌ Claim Rejected",
+      title: "Claim rejected",
       message: `Your claim on "${report.title}" was rejected.`,
       linkUrl: `/report/${claim.reportId}`,
     }).catch(() => {});

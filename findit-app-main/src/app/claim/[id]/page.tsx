@@ -10,6 +10,7 @@ import { ClaimActions } from "@/components/claims/ClaimActions";
 import { MessageThread } from "@/components/claims/MessageThread";
 import { PickupEditor } from "@/components/claims/PickupEditor";
 import { ClaimDisputeActions } from "@/components/claims/ClaimDisputeActions";
+import { CategoryIcon } from "@/components/ui/CategoryIcon";
 
 interface ClaimPageProps {
   params: Promise<{ id: string }>;
@@ -84,12 +85,12 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
       hour: "numeric", minute: "2-digit",
     });
 
-  const statusConfig: Record<string, { color: string; icon: string; label: string }> = {
-    PENDING: { color: "bg-amber-100 text-amber-800 border-amber-200", icon: "⏳", label: "Pending Review" },
-    APPROVED: { color: "bg-emerald-100 text-emerald-800 border-emerald-200", icon: "✅", label: "Approved" },
-    REJECTED: { color: "bg-red-100 text-red-800 border-red-200", icon: "❌", label: "Rejected" },
-    WITHDRAWN: { color: "bg-slate-100 text-slate-700 border-slate-200", icon: "↩️", label: "Withdrawn" },
-    REVOKED: { color: "bg-orange-100 text-orange-800 border-orange-200", icon: "⚠️", label: "Approval Revoked" },
+  const statusConfig: Record<string, { color: string; label: string }> = {
+    PENDING: { color: "bg-amber-100 text-amber-800 border-amber-200", label: "Pending Review" },
+    APPROVED: { color: "bg-emerald-100 text-emerald-800 border-emerald-200", label: "Approved" },
+    REJECTED: { color: "bg-red-100 text-red-800 border-red-200", label: "Rejected" },
+    WITHDRAWN: { color: "bg-slate-100 text-slate-700 border-slate-200", label: "Withdrawn" },
+    REVOKED: { color: "bg-orange-100 text-orange-800 border-orange-200", label: "Approval Revoked" },
   };
   const status = statusConfig[claim.status] || statusConfig.PENDING;
   const proofImages: string[] = (() => {
@@ -117,7 +118,6 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
 
       {/* Status Banner */}
       <div className={`p-4 rounded-xl border mb-6 flex items-center gap-3 ${status.color}`}>
-        <span className="text-2xl">{status.icon}</span>
         <div>
           <p className="font-semibold">{status.label}</p>
           <p className="text-sm opacity-80">
@@ -148,7 +148,7 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
                 </div>
                 {claim.categoryName && (
                   <span className="text-xs bg-muted px-2.5 py-1 rounded-full shrink-0">
-                    {claim.categoryIcon} {claim.categoryName}
+                    <CategoryIcon name={claim.categoryName ?? ""} /> {claim.categoryName}
                   </span>
                 )}
               </div>
@@ -208,7 +208,7 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
           <Card className="border-border/60 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
-                💬 Messages
+                Messages
                 <Badge variant="secondary" className="text-xs">{claimMessages.length}</Badge>
               </CardTitle>
               <p className="text-xs text-muted-foreground">
@@ -237,7 +237,7 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
           <Card className="border-border/60 shadow-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2">
-                📦 Pickup Details
+                Pickup Details
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -253,7 +253,7 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
           <Card className="border-border/60 shadow-sm">
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2">
-                🛡️ Claim Actions
+                Claim Actions
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -286,7 +286,7 @@ export default async function ClaimPage({ params }: ClaimPageProps) {
                 {isOwner && <Badge variant="secondary" className="ml-auto text-xs">You</Badge>}
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-sm">
+                <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 font-bold text-sm">
                   {claimerUser?.username?.[0]?.toUpperCase() || "?"}
                 </div>
                 <div>

@@ -26,7 +26,7 @@ export async function createNotification({
       linkUrl: linkUrl ?? null,
     });
   } catch (error) {
-    // Non-critical — log but don't throw
+    // Non-critical: log but don't throw
     console.error("Failed to create notification:", error);
   }
 }

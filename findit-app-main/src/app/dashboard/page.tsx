@@ -8,6 +8,7 @@ import { ReportCard } from "@/components/reports/ReportCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ClipboardCheck, ClipboardList, Link2, Package, Search } from "lucide-react";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -123,7 +124,7 @@ export default async function DashboardPage() {
           </Link>
           <Link href="/report/new?type=found">
             <Button
-              className="h-10 px-4 rounded-xl gradient-primary text-white border-0 shadow-none hover:opacity-90"
+              className="h-10 px-4 rounded-xl bg-primary text-white border-0 shadow-none hover:opacity-90"
               id="dash-report-found"
             >
               <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,19 +139,19 @@ export default async function DashboardPage() {
       {/* Quick Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
         {[
-          { value: lostReports.length, label: "Active Lost", icon: "🔴", gradient: "from-red-500/10 to-red-500/5", textColor: "text-red-600" },
-          { value: foundReports.length, label: "Active Found", icon: "🟢", gradient: "from-emerald-500/10 to-emerald-500/5", textColor: "text-emerald-600" },
-          { value: userMatches.length, label: "Matches", icon: "🔗", gradient: "from-indigo-500/10 to-indigo-500/5", textColor: "text-primary" },
-          { value: claimsOnMyItems.length, label: "Pending Claims", icon: "⚡", gradient: "from-amber-500/10 to-amber-500/5", textColor: "text-amber-600" },
+          { value: lostReports.length, label: "Active Lost", icon: Search, textColor: "text-red-700 dark:text-red-300" },
+          { value: foundReports.length, label: "Active Found", icon: Package, textColor: "text-emerald-700 dark:text-emerald-300" },
+          { value: userMatches.length, label: "Matches", icon: Link2, textColor: "text-primary" },
+          { value: claimsOnMyItems.length, label: "Pending Claims", icon: ClipboardList, textColor: "text-amber-700 dark:text-amber-300" },
         ].map((stat, i) => (
-          <Card key={i} className={`border-border/50 bg-gradient-to-br ${stat.gradient} card-hover`}>
+          <Card key={i} className="border-border bg-card shadow-none">
             <CardContent className="pt-5 pb-5 px-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className={`text-2xl sm:text-3xl font-bold ${stat.textColor}`}>{stat.value}</p>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">{stat.label}</p>
                 </div>
-                <span className="text-2xl">{stat.icon}</span>
+                <stat.icon aria-hidden="true" className="h-5 w-5 text-muted-foreground" />
               </div>
             </CardContent>
           </Card>
@@ -162,10 +163,10 @@ export default async function DashboardPage() {
         <div className="lg:col-span-2 space-y-8">
           {/* Pending Claims */}
           {claimsOnMyItems.length > 0 && (
-            <Card className="border-amber-200 bg-gradient-to-br from-amber-50 to-amber-50/50 dark:from-amber-950/25 dark:to-amber-950/10 dark:border-amber-400/25 animate-fade-in-up">
+            <Card className="border-amber-200 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-400/25">
               <CardHeader className="pb-3">
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <span className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-500/15 flex items-center justify-center text-sm">⚡</span>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-md bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-200"><ClipboardCheck aria-hidden="true" className="h-4 w-4" /></span>
                   Claims Requiring Your Review
                 </CardTitle>
               </CardHeader>
@@ -180,7 +181,7 @@ export default async function DashboardPage() {
                       <p className="text-sm text-muted-foreground">Claim by <span className="font-medium">@{claim.claimerName}</span></p>
                     </div>
                     <Link href={`/claim/${claim.id}`} className="ml-3 shrink-0">
-                      <Button size="sm" className="gradient-primary text-white border-0 shadow-sm">Review</Button>
+                      <Button size="sm" className="bg-primary text-white border-0 shadow-sm">Review</Button>
                     </Link>
                   </div>
                 ))}
@@ -204,7 +205,7 @@ export default async function DashboardPage() {
               <div className="text-center py-10 border border-dashed border-border/60 rounded-xl bg-muted/30">
                 <p className="text-muted-foreground text-sm">No active lost item reports</p>
                 <Link href="/report/new?type=lost" className="text-sm text-primary hover:underline mt-2 inline-block">
-                  Report a lost item →
+                  Report a lost item
                 </Link>
               </div>
             )}
@@ -226,7 +227,7 @@ export default async function DashboardPage() {
               <div className="text-center py-10 border border-dashed border-border/60 rounded-xl bg-muted/30">
                 <p className="text-muted-foreground text-sm">No active found item reports</p>
                 <Link href="/report/new?type=found" className="text-sm text-primary hover:underline mt-2 inline-block">
-                  Report a found item →
+                  Report a found item
                 </Link>
               </div>
             )}
@@ -239,7 +240,7 @@ export default async function DashboardPage() {
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-md gradient-primary flex items-center justify-center text-white text-xs">🔗</span>
+                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground"><Link2 aria-hidden="true" className="h-3.5 w-3.5" /></span>
                   Potential Matches
                 </CardTitle>
                 <Link href="/matches" className="text-xs text-primary hover:underline font-medium">View all</Link>
@@ -252,7 +253,7 @@ export default async function DashboardPage() {
                     <div key={match.id} className="border border-border/60 p-3 rounded-xl hover:bg-muted/30 transition-colors">
                       <Badge
                         variant={match.confidenceScore >= 80 ? "default" : "secondary"}
-                        className={match.confidenceScore >= 80 ? "gradient-primary text-white border-0 text-xs" : "text-xs"}
+                        className={match.confidenceScore >= 80 ? "bg-primary text-white border-0 text-xs" : "text-xs"}
                       >
                         {match.confidenceScore}% Match
                       </Badge>
@@ -264,7 +265,7 @@ export default async function DashboardPage() {
                       </div>
                       <p className="text-sm font-medium truncate">{match.foundTitle}</p>
                       <Link href="/matches" className="text-xs text-primary hover:underline mt-2 inline-block">
-                        View details →
+                        View details
                       </Link>
                     </div>
                   ))}

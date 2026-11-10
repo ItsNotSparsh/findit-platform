@@ -7,6 +7,8 @@ import { eq, or, inArray, desc } from "drizzle-orm";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CategoryIcon } from "@/components/ui/CategoryIcon";
+import { Link2 } from "lucide-react";
 
 export default async function MatchesPage() {
   const session = await auth();
@@ -25,7 +27,7 @@ export default async function MatchesPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
         <h1 className="text-2xl sm:text-3xl font-bold mb-2">Potential Matches</h1>
         <div className="text-center py-20 border border-dashed border-border/60 rounded-xl bg-muted/30 mt-6">
-          <div className="text-4xl mb-3">🔗</div>
+          <div className="mb-3 flex justify-center text-muted-foreground"><Link2 aria-hidden="true" className="h-8 w-8" /></div>
           <p className="text-muted-foreground mb-2 font-medium">No potential matches found yet</p>
           <p className="text-sm text-muted-foreground max-w-sm mx-auto">
             Create a report first, and our algorithm will find matches automatically.
@@ -35,7 +37,7 @@ export default async function MatchesPage() {
               <Button variant="destructive" className="px-6">Report Lost Item</Button>
             </Link>
             <Link href="/report/new?type=found">
-              <Button className="gradient-primary text-white border-0 px-6">Report Found Item</Button>
+              <Button className="bg-primary text-white border-0 px-6">Report Found Item</Button>
             </Link>
           </div>
         </div>
@@ -113,8 +115,8 @@ export default async function MatchesPage() {
                 {/* Confidence bar */}
                 <div className={`h-1.5 ${
                   isHighConfidence
-                    ? "bg-gradient-to-r from-emerald-500 to-teal-400"
-                    : "bg-gradient-to-r from-indigo-500/50 to-violet-500/50"
+                    ? "bg-emerald-700"
+                    : "bg-slate-300 dark:bg-slate-700"
                 }`} />
 
                 <CardHeader className="pb-2">
@@ -134,7 +136,7 @@ export default async function MatchesPage() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  {/* Match comparison — stacks on mobile */}
+                  {/* Match comparison stacks on mobile */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Lost Item */}
                     <div className="border border-red-200/80 bg-red-50/50 dark:border-red-400/30 dark:bg-red-950/20 p-4 rounded-xl">
@@ -149,7 +151,7 @@ export default async function MatchesPage() {
                         {match.lostReport?.description}
                       </p>
                       <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
-                        <span>{match.lostReport?.categoryIcon}</span>
+                        <CategoryIcon name={match.lostReport?.categoryName ?? ""} />
                         <span>{match.lostReport?.categoryName}</span>
                       </p>
                       <Link href={`/report/${match.lostReportId}`} className="text-xs text-primary hover:underline mt-2 inline-flex items-center gap-1">
@@ -172,7 +174,7 @@ export default async function MatchesPage() {
                     {/* Found Item */}
                     <div className="border border-emerald-200/80 bg-emerald-50/50 dark:border-emerald-400/30 dark:bg-emerald-950/20 p-4 rounded-xl">
                       <div className="flex items-center gap-2 mb-2">
-                        <Badge className="gradient-primary text-white border-0 text-xs">FOUND</Badge>
+                        <Badge className="bg-primary text-white border-0 text-xs">FOUND</Badge>
                         {!isMyLostItem && (
                           <span className="text-xs px-2 py-0.5 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-200 rounded-full font-medium">Your item</span>
                         )}
@@ -182,7 +184,7 @@ export default async function MatchesPage() {
                         {match.foundReport?.description}
                       </p>
                       <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
-                        <span>{match.foundReport?.categoryIcon}</span>
+                        <CategoryIcon name={match.foundReport?.categoryName ?? ""} />
                         <span>{match.foundReport?.categoryName}</span>
                       </p>
                       <Link href={`/report/${match.foundReportId}`} className="text-xs text-primary hover:underline mt-2 inline-flex items-center gap-1">
@@ -197,8 +199,8 @@ export default async function MatchesPage() {
                   <div className="mt-4 pt-4 border-t border-border/60">
                     {isMyLostItem ? (
                       <Link href={`/report/${match.foundReportId}`}>
-                        <Button size="sm" className="gradient-primary text-white border-0 shadow-sm">
-                          Claim This Item →
+                        <Button size="sm" className="bg-primary text-white border-0 shadow-sm">
+                          Claim this item
                         </Button>
                       </Link>
                     ) : (
@@ -217,7 +219,7 @@ export default async function MatchesPage() {
         </div>
       ) : (
         <div className="text-center py-20 border border-dashed border-border/60 rounded-xl bg-muted/30">
-          <div className="text-4xl mb-3">🔗</div>
+          <div className="mb-3 flex justify-center text-muted-foreground"><Link2 aria-hidden="true" className="h-8 w-8" /></div>
           <p className="text-muted-foreground mb-2 font-medium">No potential matches found yet</p>
           <p className="text-sm text-muted-foreground max-w-sm mx-auto">
             When you report an item, our algorithm will automatically search for matches.
