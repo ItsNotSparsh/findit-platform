@@ -148,7 +148,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                 </>
               )}
 
-              {report.verificationQuestion && isOwner && (
+              {report.verificationQuestion && isOwner && !isLost && (
                 <>
                   <Separator />
                   <div>
@@ -208,7 +208,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                   ) : (
                     <ClaimSection
                       reportId={report.id}
-                      hasVerificationQuestion={!!report.verificationQuestion}
+                      verificationQuestion={report.verificationQuestion}
                     />
                   )}
                 </div>

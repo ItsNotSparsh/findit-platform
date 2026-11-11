@@ -53,7 +53,7 @@ export async function POST(request: Request) {
         userId: session.user.id,
         locationDescription: validated.locationDescription ?? null,
         lostFoundDate: new Date(validated.lostFoundDate),
-        verificationQuestion: validated.verificationQuestion ?? null,
+        verificationQuestion: validated.type === "FOUND" ? validated.verificationQuestion ?? null : null,
         imageUrl: validated.imageUrl ?? null,
       })
       .returning({ id: reports.id });

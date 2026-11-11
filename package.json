@@ -9,6 +9,7 @@
     "lint": "eslint",
     "db:push": "drizzle-kit push",
     "db:seed": "npx tsx src/db/seed.ts",
+    "db:seed:categories": "npx tsx src/db/seed-categories.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {

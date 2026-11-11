@@ -92,46 +92,46 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="bg-slate-900 text-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:grid-cols-[1.3fr_0.7fr] md:items-center md:py-28 lg:px-8">
+      <section className="bg-[#263a31] text-[#f5f3ec]">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.25fr_0.75fr] md:items-center md:py-24 lg:px-8">
           <div className="max-w-3xl">
-            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.14em] text-teal-300">
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-[#b7c9ad]">
               Lost and found reports for your community
             </p>
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+            <h1 className="max-w-3xl font-serif text-4xl font-medium leading-[1.08] tracking-[-0.04em] sm:text-5xl md:text-6xl">
               Report an item. Find the person who has it.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#d2d9ce] sm:text-lg sm:leading-8">
               Post a lost or found item with its details and location. FindIt compares reports for potential matches and helps you contact the other person.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link href="/report/new?type=lost">
-                <Button size="lg" className="h-12 w-full rounded-md bg-teal-600 px-6 text-white hover:bg-teal-700 sm:w-auto">
+                <Button size="lg" className="h-12 w-full rounded-sm bg-[#d4a775] px-6 text-[#202a24] hover:bg-[#e0b98f] sm:w-auto">
                   Report a lost item
                   <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/report/new?type=found">
-                <Button size="lg" variant="outline" className="h-12 w-full rounded-md border-slate-500 bg-transparent px-6 text-white hover:bg-slate-800 hover:text-white sm:w-auto">
+                <Button size="lg" variant="outline" className="h-12 w-full rounded-sm border-[#89988b] bg-transparent px-6 text-white hover:bg-white/10 hover:text-white sm:w-auto">
                   Report a found item
                 </Button>
               </Link>
             </div>
-            <Link href="/browse" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-300 underline decoration-slate-500 underline-offset-4 hover:text-white">
+            <Link href="/browse" className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-[#d2d9ce] underline decoration-[#89988b] underline-offset-4 hover:text-white">
               Browse found items
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="hidden border-l border-slate-700 pl-8 md:block">
-            <p className="text-sm font-medium text-slate-300">How FindIt helps</p>
+          <div className="hidden border-l border-[#627267] pl-8 md:block">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b7c9ad]">How FindIt helps</p>
             <ol className="mt-5 space-y-5">
               {steps.map((step) => (
                 <li key={step.number} className="flex gap-4">
-                  <span className="font-mono text-sm text-teal-300">{step.number}</span>
+                  <span className="font-mono text-sm text-[#d4a775]">{step.number}</span>
                   <div>
                     <h2 className="font-semibold text-white">{step.title}</h2>
-                    <p className="mt-1 text-sm leading-6 text-slate-400">{step.description}</p>
+                    <p className="mt-1 text-sm leading-6 text-[#c0c9bd]">{step.description}</p>
                   </div>
                 </li>
               ))}

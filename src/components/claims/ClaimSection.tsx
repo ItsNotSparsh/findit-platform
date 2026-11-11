@@ -12,10 +12,10 @@ import { createClaimSchema, type CreateClaimInput } from "@/lib/validators/repor
 
 interface ClaimSectionProps {
   reportId: string;
-  hasVerificationQuestion: boolean;
+  verificationQuestion: string | null;
 }
 
-export function ClaimSection({ reportId, hasVerificationQuestion }: ClaimSectionProps) {
+export function ClaimSection({ reportId, verificationQuestion }: ClaimSectionProps) {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -154,17 +154,20 @@ export function ClaimSection({ reportId, hasVerificationQuestion }: ClaimSection
         )}
       </div>
 
-      {hasVerificationQuestion && (
+      {verificationQuestion && (
         <div>
-          <Label className="text-sm font-medium">Verification Answer</Label>
+          <Label htmlFor="verificationAnswer" className="text-sm font-medium">Finder&apos;s verification question</Label>
+          <p className="mt-1 text-sm text-foreground">{verificationQuestion}</p>
           <Input
-            placeholder="Answer the owner's verification question"
+            id="verificationAnswer"
+            placeholder="Enter your answer to the finder's question"
             {...register("verificationAnswer")}
             className="mt-1.5 h-11"
           />
           {errors.verificationAnswer && (
             <p className="text-sm text-destructive mt-1">{errors.verificationAnswer.message}</p>
           )}
+          <p className="mt-1 text-xs text-muted-foreground">The person who found the item will review your answer privately.</p>
         </div>
       )}
 
